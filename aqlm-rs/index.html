@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>AQLM.rs</title>
     <style>
         /** {
             outline: 1px solid red;
@@ -25,6 +25,33 @@
             display: flex;
             justify-content: space-between;
             flex-direction: column;
+        }
+
+        #header {
+            display: flex;
+            justify-content: start;
+            flex-direction: row;
+        }
+        .header-item {
+            padding-left: 20px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .header-item > h2 {
+            /*margin-right: 20px;*/
+            /*padding-left: 20px;*/
+            font-size: 26px;
+        }
+        .header-item > h3 {
+            padding-left: 50px;
+            font-size: 20px;
+        }
+        .header-item > h2 > a {
+            text-decoration: none;
+        }
+        .header-item > h3 > a {
+            text-decoration: none;
         }
         #title {
             padding-left: 20px;
@@ -81,6 +108,19 @@
             margin-left: 10px;
             font-size: 18px;
         }
+        #clear-button {
+            height: 36px;
+            width: 36px;
+            min-width: 36px;
+            border-radius: 23px;
+            border: none;
+            padding: 0px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .clear-button-hidden {
+            display: none;
+        }
         #description {
             padding: 20px;
             height: 40%;
@@ -92,6 +132,9 @@
         }
         .description-hidden {
             display: none;
+        }
+        .inactive-button {
+            color: #aaa;
         }
 
         .chat-hidden {
@@ -106,7 +149,7 @@
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script type="module" crossorigin src="/aqlm-rs/assets/index-DY2cPpiv.js"></script>
+  <script type="module" crossorigin src="/aqlm-rs/assets/index-DbzXOcPH.js"></script>
 </head>
 <body>
 <!-- Yandex.Metrika counter -->
@@ -126,15 +169,24 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/98411300" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-<h2 id="title"><a href="./">AQLM.rs</a></h2>
+
+<div id="header">
+    <div class="header-item"><h2><a href="./">AQLM.rs</a></h2></div>
+    <div class="header-item"><h3><a href="./">Demo</a></h3></div>
+    <div class="header-item"><h3><a href="./about.html">About</a></h3></div>
+</div>
 <div class="chat-hidden" id="chat"></div>
 <div id="description">
     <h2>Run Llama-3.1-8B directly in a browser</h2>
-    <h2>PLEASE DO NOT SHARE IT ANYWHERE YET</h2>
+    <h3>With state of the art 2 bit compression</h3>
     <!-- <p><a href="./">How this works</a></p> -->
-    <p><a href="https://galqiwi.github.io">About author</a></p>
+    <p><a href="./about.html">How does it work</a></p>
+    <p><a href="https://galqiwi.github.io">About me</a></p>
 </div>
 <form id="user-input-form">
+    <button type="button" id="clear-button" class="clear-button-hidden">
+        <i class="fa-solid fa-rotate"></i>
+    </button>
     <input id="user-input" type="text" placeholder="Send a Message"  autocomplete="off">
     <button id="user-input-button">
         <i class="fa-solid fa-arrow-up"></i>
