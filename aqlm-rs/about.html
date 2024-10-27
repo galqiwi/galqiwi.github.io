@@ -134,6 +134,8 @@
     <h2 id="quantization-kernels">Quantization kernels</h2>
     <p>I implemented quantization kernels for AQLM and LLM.int8(). While I managed to implement int8 quantization entirely in safe Rust, AQLM required some unsafe code.</p>
     <p>I also conducted a small study on optimal data layout for AQLM quantization by code-generating different layouts and measuring their performance. It turned out that reordering data in memory can yield about a 10% performance improvement.</p>
+    <h2 id="open-source">Open-source</h2>
+    <p>I published the source code on GitHub. You can find it <a href="https://github.com/galqiwi/demo-aqlm-rs">here</a>.</p>
     <h2 id="performance">Performance</h2>
     <p>Different computers should have different performance. On my M1 MacBook Pro, the inference speed is 1.4 tokens/s.</p>
     <h2 id="credits">Credits</h2>
