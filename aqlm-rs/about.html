@@ -119,6 +119,8 @@
     <h2 id="tl-dr">TL;DR</h2>
     <p>I implemented multithreaded CPU inference for Llama 3.1-8b with AQLM+PV and LLM.int8() quantization from scratch in Rust. I then deployed it in the browser using WebAssembly and Web Workers.</p>
     <iframe id="video-demo" src="https://www.youtube.com/embed/fPOHT4Zf_NA" title="out" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <h2 id="how-to-try">How to try</h2>
+    <p>Simply visit the <a href="./">homepage</a> of this project.</p>
     <h2 id="how-it-started">How it started</h2>
     <p>In May 2024, my colleagues and I published a paper introducing a new compression method called PV-tuning. This method enhances existing compression techniques by refining compressed models without altering their representations. When combined with AQLM — a method developed in January 2024 — PV-tuning achieves state-of-the-art results in 2-bit compression.</p>
     <p>Around the time we published our paper, Meta released Llama 3.1-8b. I thought it would be fun to run this model in a browser using our method, so I began working on it. Implementing LLM inference in a low-level language like Rust proved to be a fascinating challenge — one I highly recommend. It forces you to understand all the intricate details that you might overlook when using high-level libraries like Transformers.</p>
