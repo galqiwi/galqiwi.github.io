@@ -27,35 +27,40 @@
             flex-direction: column;
         }
 
-        #header {
-            display: flex;
-            padding-left: 20px;
-            padding-right: 20px;
-            justify-content: space-between;
-            flex-direction: row;
-            max-width: 350px;
-        }
-        .header-item {
-            /*padding-left: 20px;*/
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .header-item > h2 {
-            /*margin-right: 20px;*/
-            /*padding-left: 20px;*/
-            font-size: 26px;
-        }
-        .header-item > h3 {
-            /*margin-left: 50px;*/
-            font-size: 20px;
-        }
-        .header-item > h2 > a {
-            text-decoration: none;
-        }
-        .header-item > h3 > a {
-            text-decoration: none;
-        }
+
+
+        /*#header {*/
+        /*    display: flex;*/
+        /*    padding-left: 20px;*/
+        /*    padding-right: 20px;*/
+        /*    justify-content: space-between;*/
+        /*    flex-direction: row;*/
+        /*    max-width: 350px;*/
+        /*    border-bottom: 1px solid #e6e6e6;*/
+        /*    width: 100vw;*/
+        /*    min-width: 100%;*/
+        /*}*/
+        /*.header-item {*/
+        /*    !*padding-left: 20px;*!*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    flex-direction: column;*/
+        /*}*/
+        /*.header-item > h2 {*/
+        /*    !*margin-right: 20px;*!*/
+        /*    !*padding-left: 20px;*!*/
+        /*    font-size: 26px;*/
+        /*}*/
+        /*.header-item > h3 {*/
+        /*    !*margin-left: 50px;*!*/
+        /*    font-size: 20px;*/
+        /*}*/
+        /*.header-item > h2 > a {*/
+        /*    text-decoration: none;*/
+        /*}*/
+        /*.header-item > h3 > a {*/
+        /*    text-decoration: none;*/
+        /*}*/
         #title {
             padding-left: 20px;
             font-size: 26px;
@@ -158,8 +163,59 @@
             overflow-y: auto;
         }
     </style>
+
+
+
+    <style>
+        #header {
+            display: flex;
+            padding-left: 20px;
+            padding-right: 20px;
+            justify-content: space-between;
+            flex-direction: row;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        #header a {
+            text-decoration: none;
+        }
+
+        #header a:hover {
+            text-decoration: underline;
+        }
+
+        #header-items {
+            display: flex;
+        }
+        .header-items-horizontal {
+            flex-direction: row;
+        }
+        .header-items-vertical {
+            flex-direction: column;
+        }
+        .header-item {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .header-not-first-item {
+        }
+        .header-not-first-item-horizontal {
+            margin-left: 30px;
+        }
+
+        .header-first-item a {
+            font-size: 20px;
+            /*font-weight: bold;*/
+        }
+
+        .header-item a {
+            font-size: 20px;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script type="module" crossorigin src="/aqlm-rs/assets/index-CAnntRuw.js"></script>
+  <script type="module" crossorigin src="/aqlm-rs/assets/index-DzL8Mri3.js"></script>
 </head>
 <body>
 <!-- Yandex.Metrika counter -->
@@ -181,10 +237,26 @@
 
 
 <div id="header">
-    <div class="header-item"><h2><a href="./">AQLM.rs</a></h2></div>
-    <div class="header-item"><h3><a href="./">Demo</a></h3></div>
-    <div class="header-item"><h3><a href="./about.html">About</a></h3></div>
+    <div id="header-items" class="header-items-horizontal">
+        <div class="header-item header-first-item"><a href="./about.html">AQLM.rs</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./">Demo</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./about.html">About</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./">Source</a></div>
+    </div>
+    <!--    <div class="header-item"><h3><a href="javascript:void(0);" class="icon" onclick="switchDirection()"><i class="fa fa-bars"></i></a></h3></div>-->
 </div>
+
+<script>
+    function switchDirection() {
+        let headerItems = document.getElementById("header-items");
+        headerItems.classList.toggle("header-items-horizontal");
+        headerItems.classList.toggle("header-items-vertical");
+        Array.prototype.forEach.call(document.getElementsByClassName("header-not-first-item"), (item) => {
+            item.classList.toggle("header-not-first-item-horizontal");
+        });
+    }
+</script>
+
 <div class="chat-hidden" id="chat"></div>
 <!--<div id="description">-->
 <!--    <h2 class="input-activator">Run Llama-3.1-8B directly in a browser</h2>-->
