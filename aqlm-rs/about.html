@@ -26,35 +26,6 @@
             justify-content: start;
             flex-direction: column;
         }
-        #header {
-            display: flex;
-            padding-left: 20px;
-            padding-right: 20px;
-            justify-content: space-between;
-            flex-direction: row;
-            max-width: 350px;
-        }
-        .header-item {
-            /*padding-left: 20px;*/
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .header-item > h2 {
-            /*margin-right: 20px;*/
-            /*padding-left: 20px;*/
-            font-size: 26px;
-        }
-        .header-item > h3 {
-            /*margin-left: 50px;*/
-            font-size: 20px;
-        }
-        .header-item > h2 > a {
-            text-decoration: none;
-        }
-        .header-item > h3 > a {
-            text-decoration: none;
-        }
         #main-text {
             padding: 14px;
             /*overflow-x: hidden;*/
@@ -107,6 +78,56 @@
             margin-bottom: 10px;
         }
     </style>
+
+    <style>
+        #header {
+            display: flex;
+            padding-left: 20px;
+            padding-right: 20px;
+            justify-content: space-between;
+            flex-direction: row;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        #header a {
+            text-decoration: none;
+        }
+
+        #header a:hover {
+            text-decoration: underline;
+        }
+
+        #header-items {
+            display: flex;
+        }
+        .header-items-horizontal {
+            flex-direction: row;
+        }
+        .header-items-vertical {
+            flex-direction: column;
+        }
+        .header-item {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .header-not-first-item {
+        }
+        .header-not-first-item-horizontal {
+            margin-left: 30px;
+        }
+
+        .header-first-item a {
+            font-size: 20px;
+            /*font-weight: bold;*/
+        }
+
+        .header-item a {
+            font-size: 20px;
+        }
+    </style>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -128,16 +149,23 @@
 <!-- /Yandex.Metrika counter -->
 
 <div id="header">
-    <div class="header-item"><h2><a href="./">AQLM.rs</a></h2></div>
-    <div class="header-item"><h3><a href="./">Demo</a></h3></div>
-    <div class="header-item"><h3><a href="./about.html">About</a></h3></div>
+    <div id="header-items" class="header-items-horizontal">
+        <div class="header-item header-first-item"><a href="./about.html">AQLM.rs</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./">Demo</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./about.html">About</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="https://github.com/galqiwi/demo-aqlm-rs">Source</a></div>
+    </div>
+<!--    <div class="header-item"><h3><a href="javascript:void(0);" class="icon" onclick="switchDirection()"><i class="fa fa-bars"></i></a></h3></div>-->
 </div>
+
 <div id="main-text-wrapper">
 <div id="main-text">
     <h1 id="title">Run Llama-3.1-8B directly in a browser</h1>
-    <h3>With state of the art 2 bit compression</h3>
+    <h3 style="margin-bottom: 10px">With state of the art 2 bit compression</h3>
+    <p style="margin-top: 10px">Made by <a href="https://galqiwi.github.io">galqiwi</a>.</p>
+
     <h2 id="how-to-try">How to try</h2>
-    <p>Simply visit the <a href="./">homepage</a> of this project.</p>
+    <p>Simply visit the <a href="./">demo</a> page of this project.</p>
     <iframe id="video-demo" src="https://www.youtube.com/embed/fPOHT4Zf_NA" title="out" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
     <h1 id="how-this-works">How this works</h1>
