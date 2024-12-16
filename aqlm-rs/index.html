@@ -203,10 +203,86 @@
         .header-item a {
             font-size: 20px;
         }
+
+        #chat-model-header {
+            padding-left: 10px;
+            font-size: 20px;
+            color: #555555;
+        }
+
+        .chat-model-header-hidden {
+            display: none;
+        }
+    </style>
+
+    <style>
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-hidden {
+            display: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            width: 100%;
+            /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown .dropdown-button {
+            text-align: left;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .dropdown:hover .dropdown-button {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .dropdown-button {
+            padding-left: 5px;
+            padding-right: 5px;
+            background: none;
+            cursor: pointer;
+            font-size: inherit;
+            /*border: none;*/
+            border: 1px solid #aaaaaa;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .dropdown-content a {
+            padding-left: 5px;
+            color: black;
+            text-align: left;
+            text-decoration: none;
+            display: block;
+            border: 1px solid #aaaaaa;
+            border-top: none;
+            background-color: #ffffff;
+        }
+
+        .dropdown-content-last-element {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script type="module" crossorigin src="/aqlm-rs/assets/index-57J19mYv.js"></script>
+  <script type="module" crossorigin src="/aqlm-rs/assets/index-cXmkYQgK.js"></script>
 </head>
 <body>
 
@@ -237,12 +313,38 @@
     </div>
 </div>
 
+<p id="chat-model-header" class="chat-model-header-hidden">Chat with Llama-3.1-8B</p>
+
 <div class="chat-hidden" id="chat"></div>
 
 <div id="user-input-height-limiter" class="user-input-height-limiter-active">
     <div id="user-input-width-limiter" class="user-input-width-limiter-active">
         <div id="chat-title">
-            <h1>Run Llama-3.1-8B directly in a browser</h1>
+            <h1>
+                Run
+                <div class="dropdown-hidden" id="dropdown-8b">
+                    <div class="dropdown-button">Llama-3.1-8B ▾</div>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="window.location.hash = '#llama-3'; window.location.reload();">Llama-3.2-3B</a>
+                        <a href="#" onclick="window.location.hash = '#llama-1'; window.location.reload();" class="dropdown-content-last-element">Llama-3.2-1B</a>
+                    </div>
+                </div>
+                <div class="dropdown-hidden" id="dropdown-3b">
+                    <div class="dropdown-button">Llama-3.2-3B ▾</div>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="window.location.hash = '#llama-8'; window.location.reload();">Llama-3.1-8B</a>
+                        <a href="#" onclick="window.location.hash = '#llama-1'; window.location.reload();" class="dropdown-content-last-element">Llama-3.2-1B</a>
+                    </div>
+                </div>
+                <div class="dropdown-hidden" id="dropdown-1b">
+                    <div class="dropdown-button">Llama-3.2-1B ▾</div>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="window.location.hash = '#llama-8'; window.location.reload();">Llama-3.1-8B</a>
+                        <a href="#" onclick="window.location.hash = '#llama-3'; window.location.reload();" class="dropdown-content-last-element">Llama-3.2-3B</a>
+                    </div>
+                </div>
+                directly in a browser
+            </h1>
         </div>
         <form id="user-input-form">
             <button type="button" id="clear-button" class="clear-button-hidden">
@@ -256,6 +358,18 @@
     </div>
 </div>
 
+<script>
+    let dropdownId = "dropdown-8b";
+    if (window.location.hash === "#llama-1") {
+        dropdownId = "dropdown-1b";
+    }
+    if (window.location.hash === "#llama-3") {
+        dropdownId = "dropdown-3b";
+    }
+    const activeDropdown = document.getElementById(dropdownId);
+    activeDropdown.classList.remove("dropdown-hidden");
+    activeDropdown.classList.add("dropdown");
+</script>
 
 <script>
     let input_field = document.getElementById("user-input");
