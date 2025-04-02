@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AQLM.rs</title>
+    <style>
+        /** {*/
+        /*    outline: 1px solid red;*/
+        /*}*/
+        * {
+            font-family: -apple-system,BlinkMacSystemFont,Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+        }
+        a {
+            color: black;
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+        #title {
+            padding-left: 20px;
+            font-size: 26px;
+        }
+        #title > a {
+            text-decoration: none;
+        }
+        .message {
+            display: inline-block;
+            text-wrap: wrap;
+            text-wrap-mode: wrap;
+            text-wrap-style: stable;
+            max-width: 40%;
+            background: #f1f1f1;
+            margin: 8px;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 18px;
+        }
+        .user-message-row {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+        .ai-message-row {
+            display: flex;
+            flex-direction: row;
+        }
+        #user-input-form {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+        #user-input {
+            width: 100%;
+            background: #f1f1f1;
+            height: 44px;
+            border-radius: 22px;
+            border: none;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 23px;
+            font-size: 16px;
+        }
+        #user-input-button {
+            height: 44px;
+            width: 44px;
+            min-width: 44px;
+            border-radius: 22px;
+            border: none;
+            padding: 0px;
+            margin-left: 12px;
+            font-size: 22px;
+        }
+        #clear-button {
+            height: 44px;
+            width: 44px;
+            min-width: 44px;
+            border-radius: 22px;
+            border: none;
+            padding: 0px;
+            margin-right: 12px;
+            font-size: 22px;
+        }
+        .clear-button-hidden {
+            display: none;
+        }
+        #description {
+            padding: 20px;
+            height: 40%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        #description > h2 {
+            font-size: 26px;
+        }
+        .description-hidden {
+            display: none;
+        }
+        .inactive-button {
+            color: #aaa;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus,
+        button:focus {
+            outline: none;
+        }
+
+        .chat-hidden {
+            display: none;
+        }
+        .chat-visible {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        #chat-title {
+            padding-right: 15px;
+            padding-left: 15px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .chat-title-hidden {
+            display: none;
+        }
+
+        #user-input-width-limiter {
+            width: 100%;
+        }
+        .user-input-width-limiter-active {
+            max-width: 700px;
+        }
+
+        #user-input-height-limiter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .user-input-height-limiter-active {
+            height: 100%;
+        }
+    </style>
+
+    <style>
+        #header {
+            display: flex;
+            padding-left: 20px;
+            padding-right: 20px;
+            justify-content: space-between;
+            flex-direction: row;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        #header a {
+            text-decoration: none;
+        }
+
+        #header a:hover {
+            text-decoration: underline;
+        }
+
+        #header-items {
+            display: flex;
+        }
+        .header-items-horizontal {
+            flex-direction: row;
+        }
+        .header-items-vertical {
+            flex-direction: column;
+        }
+        .header-item {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .header-not-first-item {
+        }
+        .header-not-first-item-horizontal {
+            margin-left: 30px;
+        }
+
+        .header-first-item a {
+            font-size: 20px;
+            /*font-weight: bold;*/
+        }
+
+        .header-item a {
+            font-size: 20px;
+        }
+
+        #chat-model-header {
+            padding-left: 10px;
+            font-size: 20px;
+            color: #555555;
+        }
+
+        .chat-model-header-hidden {
+            display: none;
+        }
+    </style>
+
+    <style>
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-hidden {
+            display: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            width: 100%;
+            /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown .dropdown-button {
+            text-align: left;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .dropdown:hover .dropdown-button {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .dropdown-button {
+            padding-left: 5px;
+            padding-right: 5px;
+            background: none;
+            cursor: pointer;
+            font-size: inherit;
+            /*border: none;*/
+            border: 1px solid #aaaaaa;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .dropdown-content a {
+            padding-left: 5px;
+            color: black;
+            text-align: left;
+            text-decoration: none;
+            display: block;
+            border: 1px solid #aaaaaa;
+            border-top: none;
+            background-color: #ffffff;
+        }
+
+        .dropdown-content-last-element {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script type="module" crossorigin src="/aqlm-rs/assets/index-BznHn5I0.js"></script>
+</head>
+<body>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(98411300, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/98411300" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<div id="header">
+    <div id="header-items" class="header-items-horizontal">
+        <div class="header-item header-first-item"><a href="./about.html">AQLM.rs</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./">Demo</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="./about.html">About</a></div>
+        <div class="header-item header-not-first-item header-not-first-item-horizontal"><a href="https://github.com/galqiwi/demo-aqlm-rs">Source</a></div>
+    </div>
+</div>
+
+<p id="chat-model-header" class="chat-model-header-hidden">Chat with Llama-3.1-8B</p>
+
+<div class="chat-hidden" id="chat"></div>
+
+<div id="user-input-height-limiter" class="user-input-height-limiter-active">
+    <div id="user-input-width-limiter" class="user-input-width-limiter-active">
+        <div id="chat-title">
+            <h1>
+                Run
+                <div class="dropdown-hidden" id="dropdown-8b">
+                    <div class="dropdown-button">Llama-3.1-8B ▾</div>
+                    <div class="dropdown-content">
+                        <a href="#llama-3">Llama-3.2-3B</a>
+                        <a href="#llama-1" class="dropdown-content-last-element">Llama-3.2-1B</a>
+                    </div>
+                </div>
+                <div class="dropdown-hidden" id="dropdown-3b">
+                    <div class="dropdown-button">Llama-3.2-3B ▾</div>
+                    <div class="dropdown-content">
+                        <a href="#llama-8">Llama-3.1-8B</a>
+                        <a href="#llama-1" class="dropdown-content-last-element">Llama-3.2-1B</a>
+                    </div>
+                </div>
+                <div class="dropdown-hidden" id="dropdown-1b">
+                    <div class="dropdown-button">Llama-3.2-1B ▾</div>
+                    <div class="dropdown-content">
+                        <a href="#llama-8">Llama-3.1-8B</a>
+                        <a href="#llama-3" class="dropdown-content-last-element">Llama-3.2-3B</a>
+                    </div>
+                </div>
+                directly in a browser
+            </h1>
+        </div>
+        <form id="user-input-form">
+            <button type="button" id="clear-button" class="clear-button-hidden">
+                <i class="fa-solid fa-rotate"></i>
+            </button>
+            <input id="user-input" type="text" placeholder="Send a Message"  autocomplete="off">
+            <button id="user-input-button">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let dropdownId = "dropdown-1b";
+    if (window.location.hash === "#llama-8") {
+        dropdownId = "dropdown-8b";
+    }
+    if (window.location.hash === "#llama-3") {
+        dropdownId = "dropdown-3b";
+    }
+    const activeDropdown = document.getElementById(dropdownId);
+    activeDropdown.classList.remove("dropdown-hidden");
+    activeDropdown.classList.add("dropdown");
+
+    window.addEventListener('hashchange', function(event) {
+        window.location.reload();
+    });
+</script>
+
+<script>
+    let input_field = document.getElementById("user-input");
+    input_field.focus();
+</script>
+
+</body>
+</html>
