@@ -111,12 +111,71 @@ h3 {
   font-weight: normal;
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 32px;
+  text-align: center;
 }
 
 .header {
   padding-top: 20px;
   margin: 0;
+  margin-top: 30px;
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 30px;
+}
+
+.page-table,
+.layout-table {
+  width: 100%;
+  border: 0px;
+  border-spacing: 0px;
+  border-collapse: separate;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-table {
+  max-width: 800px;
+}
+
+.flush {
+  padding: 0px;
+}
+
+.bio-cell {
+  padding: 2.5%;
+  width: 60%;
+  vertical-align: middle;
+}
+
+.photo-cell {
+  padding: 2.5%;
+  width: 40%;
+  max-width: 40%;
+}
+
+.photo {
+  width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+.links {
+  text-align: center;
+}
+
+.pub-title-first {
+  margin-top: 10px;
+}
+
+.pub-title {
+  margin-top: 30px;
+}
+
+.venue {
+  font-size: 15px;
+  margin-bottom: 0px;
+}
+
+.oral {
+  color: #fb4485;
 }
 
