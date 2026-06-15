@@ -179,3 +179,23 @@ h3 {
   color: #fb4485;
 }
 
+@media (max-width: 600px) {
+  .page-table,
+  .page-table tbody,
+  .layout-table,
+  .layout-table tbody,
+  .layout-table tr,
+  .layout-table td,
+  .flush {
+    display: block;
+    width: auto;
+  }
+
+  .photo {
+    display: block;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
