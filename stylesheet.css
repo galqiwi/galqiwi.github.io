@@ -89,7 +89,8 @@ strong {
   font-size: 14px;
 }
 
-h2 {
+h2,
+h3 {
   margin: 0;
   font-weight: normal;
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
@@ -99,6 +100,7 @@ h2 {
 .name {
   padding-top: 20px;
   margin: 0;
+  font-weight: normal;
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 32px;
 }
